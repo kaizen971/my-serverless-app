@@ -11,17 +11,6 @@ app.use(cors());
 // Parse JSON bodies
 app.use(express.json());
 
-app.get('/sendmail', async (req, res) => {
-
-
-        try {
-            await transporter.sendMail(mailOptions);
-            res.status(200).send('Email sent successfully');
-        } catch (error) {
-            res.status(500).send('Error sending email');
-        }
-});
-
 app.post('/sendmail', async (req, res) => {
     let { to, subject, text } = req.body;
 
@@ -48,4 +37,5 @@ app.post('/sendmail', async (req, res) => {
     }
 });
 
-module.exports.handler = serverless(app);
+// Export your server for Vercel
+module.exports = serverless(app);
